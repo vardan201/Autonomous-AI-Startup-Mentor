@@ -1,0 +1,520 @@
+{
+  "name": "Sending Report",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "e6989fb3-df53-4e9b-9c26-af564091d44d",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -560,
+        -128
+      ],
+      "id": "fd80ea30-9770-43a0-bc9a-905c406ca63b",
+      "name": "Webhook",
+      "webhookId": "e6989fb3-df53-4e9b-9c26-af564091d44d"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "==You are tasked with generating a professional startup investment report.\n\n**STARTUP INFORMATION:**\n- Startup Name: {{ $json.body.startup_name }}\n- Problem: {{ $json.body.problem }}\n- Solution: {{ $json.body.solution }}\n- Target Market: {{ $json.body.target_market }}\n- Traction: {{ $json.body.traction }}\n- Revenue Model: {{ $json.body.revenue_model }}\n- Funding Stage & Ask: {{ $json.body.funding_stage_and_ask }}\n- Founder Background: {{ $json.body.founder_background }}\n- Contact Email: {{ $json.body.contact_email }}\n\n---\n\n**INSTRUCTIONS:**\nFill in the template below with relevant analysis based ONLY on the information provided above. Keep your writing professional, analytical, and investor-focused. Do NOT invent data or make unsupported claims.\n\n---\n\n**OUTPUT THE FOLLOWING EXACTLY (fill in the [SECTIONS] with your analysis):**\n\n═══════════════════════════════════════════════════════════════\n\n{{ $json.body.startup_name }} - INVESTMENT REPORT\n\n═══════════════════════════════════════════════════════════════\n\n\nEXECUTIVE SUMMARY\n─────────────────────────────────────────────────────────────\n\n[Write one compelling paragraph of 4-6 sentences explaining what the startup does, why it matters, and the core value proposition. Make it engaging and investor-focused.]\n\n\nPROBLEM OVERVIEW\n─────────────────────────────────────────────────────────────\n\nThe Challenge:\n[Describe the specific pain point in 2-3 sentences]\n\nWho It Affects:\n[Identify the target customer profile experiencing this problem]\n\nMarket Context:\n[Explain the severity, frequency, and broader market implications]\n\n\nPROPOSED SOLUTION\n─────────────────────────────────────────────────────────────\n\nCore Offering:\n[Describe the solution in clear terms - 3-4 sentences]\n\nKey Differentiators:\n• [Point 1]\n• [Point 2]\n• [Point 3]\n\nUser Experience:\n[Brief description of how users interact with the solution]\n\n\nTARGET MARKET & OPPORTUNITY\n─────────────────────────────────────────────────────────────\n\nPrimary Customer Segment:\n[Define the target market with specificity]\n\nMarket Size & Characteristics:\n[Discuss addressable market, growth potential, and key trends]\n\nGrowth Drivers:\n• [Driver 1]\n• [Driver 2]\n• [Driver 3]\n\nExpansion Opportunities:\n[Note any secondary markets or future possibilities]\n\n\nTRACTION & VALIDATION\n─────────────────────────────────────────────────────────────\n\nCurrent Metrics:\n[List all traction data: users, revenue, partnerships, etc.]\n\nAnalysis:\n[Interpret what this traction indicates about product-market fit]\n\nTraction Assessment: [EARLY / MODERATE / STRONG]\n\nGrowth Trajectory:\n[Comment on momentum and future potential]\n\n\nBUSINESS & REVENUE MODEL\n─────────────────────────────────────────────────────────────\n\nRevenue Model:\n[Explain pricing strategy, tiers, and monetization approach]\n\nUnit Economics:\n[Discuss cost structure and margin potential where inferable]\n\nScalability Analysis:\n[Assess how well the model scales and key revenue drivers]\n\n\nFOUNDER & TEAM ASSESSMENT\n─────────────────────────────────────────────────────────────\n\nFounder Background:\n[Summarize relevant experience and expertise]\n\nProblem-Solution Alignment:\n[Evaluate how founder experience matches the problem space]\n\nTeam Strengths & Gaps:\n[Note capabilities and any missing expertise]\n\n\nFUNDING OVERVIEW\n─────────────────────────────────────────────────────────────\n\nStage: [Insert funding stage]\nAmount Sought: [Insert amount]\n\nIntended Use of Capital:\n• [Use 1 with brief explanation]\n• [Use 2 with brief explanation]\n• [Use 3 with brief explanation]\n• [Use 4 with brief explanation]\n\n\nRISKS & CHALLENGES\n─────────────────────────────────────────────────────────────\n\nRISK 1: [Risk Name]\n[2-3 sentences explaining the risk and its implications]\n\nRISK 2: [Risk Name]\n[2-3 sentences explaining the risk and its implications]\n\nRISK 3: [Risk Name]\n[2-3 sentences explaining the risk and its implications]\n\n\nOVERALL INVESTOR READINESS\n─────────────────────────────────────────────────────────────\n\nAssessment: [VERY EARLY / EARLY / PROMISING / INVESTOR-READY]\n\nRationale:\n[3-4 sentences justifying this assessment, covering product-market fit, team capability, traction level, and readiness to scale]\n\n\n═══════════════════════════════════════════════════════════════\n\nCONTACT INFORMATION\n\nInvestors interested in learning more about {{ $json.body.startup_name }} or initiating a conversation are invited to reach out directly to the founding team at {{ $json.body.contact_email }}\n\n═══════════════════════════════════════════════════════════════\n\n\n**FORMATTING RULES:**\n- Preserve all the lines (═══ and ─────) exactly as shown\n- Keep all section headers in CAPS\n- Maintain all spacing and line breaks\n- Use bullet points (•) where indicated\n- Keep the structure identical to the template",
+        "options": {
+          "systemMessage": "You are a senior venture capital analyst and startup advisor.\n\nYour task is to analyze early-stage startups and generate clear, concise, and investor-ready reports.\nThink like an investor: focus on clarity, market fit, differentiation, traction, and funding readiness.\nAvoid hype. Be realistic, structured, and professional.\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        -368,
+        -128
+      ],
+      "id": "7edd3192-156b-4be1-b783-50128420633c",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": "openai/gpt-oss-120b",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        -480,
+        80
+      ],
+      "id": "7a95628b-7612-4e99-bd45-a2010e8c80fc",
+      "name": "Groq Chat Model",
+      "credentials": {
+        "groqApi": {
+          "id": "Ah1M77mwrZ76rCXG",
+          "name": "Groq account 4"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1-HTQNQRA7Z251G3T95sa3T5IXlWSkKmJp-qq9bg81E0",
+          "mode": "list",
+          "cachedResultName": "Investors",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1-HTQNQRA7Z251G3T95sa3T5IXlWSkKmJp-qq9bg81E0/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1-HTQNQRA7Z251G3T95sa3T5IXlWSkKmJp-qq9bg81E0/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -16,
+        -128
+      ],
+      "id": "71440e51-6f95-474a-a6c7-d7324b3e59f9",
+      "name": "Get row(s) in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "4BUaKSD0Tib7vRQk",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "2f286fd3-c941-43d0-8109-58d71b710eab",
+              "leftValue": "={{ $json.STATUS }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        192,
+        -128
+      ],
+      "id": "8270b76d-e68a-4834-bd3f-f82a4ab5d508",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        400,
+        -144
+      ],
+      "id": "0fc470a1-24cf-4c66-8a1a-c718cc544bbe",
+      "name": "Loop Over Items"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are given:\n\n1) A startup investment report\n2) Details of ONE investor firm\n\nYour job is to compare them and assign a relevance rating.\n\n---\n\n### STARTUP REPORT:\n{{ $('AI Agent').item.json.output }}\n\n---\n\n### INVESTOR DETAILS:\nCompany Name: {{ $('Loop Over Items').item.json.Company_Name }}\nEmail ID: {{ $('Loop Over Items').item.json.Email_ID }}\nAUM: {{ $('Loop Over Items').item.json.AUM }}\nRegion: {{ $('Loop Over Items').item.json.Region }}\nDescription: {{ $('Loop Over Items').item.json.Description }}\nPreferred Industry: {{ $('Loop Over Items').item.json.Preferred_Industry }}\nPreferred Investment Types: {{ $('Loop Over Items').item.json.Preferred_Investment_Types }}\nCompany URL: {{ $('Loop Over Items').item.json.Company_URL }}\n\n---\n\n### MATCHING CRITERIA:\nEvaluate the investor–startup fit based on:\n\n1. Industry alignment  \n2. Investment stage compatibility  \n3. Geographic relevance  \n4. Business model & problem alignment  \n5. Overall strategic fit  \n\n---\n\n### SCORING RULES:\n- Assign a **match score from 0 to 100**\n- Higher score = stronger relevance\n- Be conservative and realistic\n\n⚠️ IMPORTANT EMAIL RULE:\n- If `Email ID` is **\"N/A\"**, **still score the investor normally**\n- BUT set `email_priority` to `\"LOW\"`\n- Investors with `\"LOW\"` email priority will be ranked LAST later\n\n---\n\n### OUTPUT FORMAT (STRICT — JSON ONLY):\n\nReturn ONLY the following JSON object:\n\n{\n  \"company_name\": \"{{ $('Loop Over Items').item.json.Company_Name }}\",\n  \"email_id\": \"{{ $('Loop Over Items').item.json.Email_ID }}\",\n  \"match_score\": number,\n  \"email_priority\": \"HIGH\" | \"LOW\"\n  \n}\n\n---\n\n### CONSTRAINTS:\n- Do NOT include markdown\n- Do NOT include extra text\n- Do NOT invent data\n- Base decisions ONLY on provided information\n",
+        "options": {
+          "systemMessage": "You are a professional venture capital analyst.\n\nYour task is to evaluate how well an investor matches a startup opportunity.\nYou must be objective, structured, and consistent in scoring.\nYou are NOT allowed to invent facts or assume missing information.\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        800,
+        -144
+      ],
+      "id": "69bef8e0-7df6-4998-95c9-96bef65be458",
+      "name": "AI Agent1"
+    },
+    {
+      "parameters": {
+        "model": "openai/gpt-oss-120b",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        720,
+        96
+      ],
+      "id": "ca690b06-30e2-40fe-8296-dfd116ac4ddc",
+      "name": "Groq Chat Model1",
+      "credentials": {
+        "groqApi": {
+          "id": "uEyyMvES5gqdzVpZ",
+          "name": "Groq account 11"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1-HTQNQRA7Z251G3T95sa3T5IXlWSkKmJp-qq9bg81E0",
+          "mode": "list",
+          "cachedResultName": "Investors",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1-HTQNQRA7Z251G3T95sa3T5IXlWSkKmJp-qq9bg81E0/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1-HTQNQRA7Z251G3T95sa3T5IXlWSkKmJp-qq9bg81E0/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Company_URL": "={{ $json.Company_URL }}",
+            "STATUS": "CHECKED"
+          },
+          "matchingColumns": [
+            "Company_URL"
+          ],
+          "schema": [
+            {
+              "id": "Company_Name",
+              "displayName": "Company_Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Email_ID",
+              "displayName": "Email_ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "AUM",
+              "displayName": "AUM",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Region",
+              "displayName": "Region",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Description",
+              "displayName": "Description",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Preferred_Industry",
+              "displayName": "Preferred_Industry",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Preferred_Investment_Types",
+              "displayName": "Preferred_Investment_Types",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Company_URL",
+              "displayName": "Company_URL",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "STATUS",
+              "displayName": "STATUS",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        624,
+        -112
+      ],
+      "id": "27a266be-d112-4dcf-ae6e-d2c8e8b8a1ed",
+      "name": "Update row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "4BUaKSD0Tib7vRQk",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Step 0: Get the startup report from AI Agent\nconst startupReport = $('AI Agent').first().json.output;\n\n// Step 1: Parse all agent outputs\nconst parsedItems = $input.all()\n  .map(item => {\n    try {\n      // Try to parse the string in output\n      const parsed = JSON.parse(item.json.output);\n      \n      // Normalize fields and ADD startup_report\n      return {\n        json: {\n          company_name: parsed.company_name || \"N/A\",\n          email_id: parsed.email_id || \"N/A\",\n          match_score: parsed.match_score || 0,\n          email_priority: parsed.email_id && parsed.email_id !== \"N/A\" ? \"HIGH\" : \"LOW\",\n          match_reason: parsed.match_reason || \"No reason provided\",\n          startup_report: startupReport  // Include the startup report\n        }\n      };\n    } catch (err) {\n      // If parsing fails, push a default low-priority item\n      return {\n        json: {\n          company_name: \"Unknown\",\n          email_id: \"N/A\",\n          match_score: 0,\n          email_priority: \"LOW\",\n          match_reason: \"Parsing failed\",\n          startup_report: startupReport  // Include the startup report even on error\n        }\n      };\n    }\n  });\n\n// Step 2: Sort investors by email priority first, then match_score descending\nparsedItems.sort((a, b) => {\n  if (a.json.email_priority !== b.json.email_priority) {\n    return a.json.email_priority === \"HIGH\" ? -1 : 1;\n  }\n  return b.json.match_score - a.json.match_score;\n});\n\n// Step 3: Take top 3 investors\nreturn parsedItems.slice(0, 3);"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        672,
+        -272
+      ],
+      "id": "dd6dc06d-25ae-427e-a852-528d66d85ef0",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        944,
+        -400
+      ],
+      "id": "e1e90db2-46d5-4638-a378-2c558bbedc5b",
+      "name": "Loop Over Items1"
+    },
+    {
+      "parameters": {
+        "sendTo": "avaiverma2004@gmail.com",
+        "subject": "Regarding Startup Funding",
+        "message": "={{ $json.startup_report }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        1440,
+        -448
+      ],
+      "id": "fc1aed84-6859-4bed-b0b4-ee659d179b09",
+      "name": "Send a message",
+      "webhookId": "b5fe201a-93e7-4b97-a47b-92281ac05e86",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "9p0RjqImNempky62",
+          "name": "Gmail account 2"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update row in sheet": {
+      "main": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent1": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items1": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a message": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false,
+    "timeSavedMode": "fixed",
+    "callerPolicy": "workflowsFromSameOwner"
+  },
+  "versionId": "7859b4c1-a0b2-42e5-9944-c1e8c47f8bfb",
+  "meta": {
+    "instanceId": "716310a465bd1aa2c729a7f95d6b72fd99cabf13faef46c51e493fbf05cc8347"
+  },
+  "id": "HwRJahqZMDrDWgWZYDJud",
+  "tags": []
+}
